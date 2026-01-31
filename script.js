@@ -31,6 +31,32 @@ const quizData = [
 }
 ];
 
+function shuffle(arr) {
+    let a = arr.slice();
+    for(let i=a.length -1; i>0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        let temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+    return a;
+}
+
+let quiz = [];
+function prepareQuiz() {
+    const shuffleQuestions = shuffle(quizData);
+    quiz = shuffleQuestions.map(q => {
+        const optionPairs = q.options.map((opt, idx) => ({opt, idx}));
+        const shuffledOptions = shuffle(optionPairs);
+        const newAnswerIndex = shuffledOptions.findIndex(o => o.idx === q.answer);
+        return {
+            question: q.question,
+            options: shuffledOptions.map(o => o.opt),
+            answer: newAnswerIndex
+        };
+    });
+}
+
 let currentIndex = 0;
 let score = 0;
 let answered = false;
@@ -47,11 +73,11 @@ const progressEl = document.getElementById("progress");
 
 function loadQuestion() {
     answered = false;
-    nextBtn.disable = true;
+    nextBtn.disabled = true;
     timeLeft = 30;
     timerEl.textContent = "Time: " + timeLeft;
 
-    const currentQuestion = quizData[currentIndex];
+    const currentQuestion = quiz[currentIndex];
 
     questionNumber.textContent = "Question " + (currentIndex + 1);
     questionEl.textContent = currentQuestion.question;
@@ -72,7 +98,7 @@ function loadQuestion() {
 }
 
 function updateProgress() {
-  const percent = Math.round((currentIndex / quizData.length) * 100);
+  const percent = Math.round((currentIndex / quiz.length) * 100);
   progressEl.style.width = percent + "%";
 }
 
@@ -101,7 +127,7 @@ function selectAnswer(button, selectedIndex) {
     answered = true;
     stopTimer();
 
-    const correctIndex = quizData[currentIndex].answer;
+    const correctIndex = quiz[currentIndex].answer;
     const buttons = document.querySelectorAll(".option-btn");
 
     if(selectedIndex === correctIndex) {
@@ -151,4 +177,5 @@ function nextQuestion() {
 
 nextBtn.addEventListener("click", nextQuestion);
 
+prepareQuiz();
 loadQuestion();
