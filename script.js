@@ -132,9 +132,11 @@ function nextQuestion() {
         loadQuestion();
     }
     else {
+        stopTimer();
         questionEl.textContent = "Quiz Finished";
         optionsEl.innerHTML = "";
         nextBtn.disabled = true;
+        timerEl.textContent = "";
     }
 }
 
