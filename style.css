@@ -16,6 +16,11 @@ body {
     text-align: center;
 }
 
+#timer {
+    font-weight: bold;
+    margin: 10px 0;
+    color: #facc15;
+}
 #question {
     margin: 15px 0;
     font-size: 18px;

@@ -10,11 +10,6 @@ const quizData = [
     answer: 0
   },
   {
-       question: "Which language runs in a web browser?",
-       options: ["Java","C","Python","JavaScript"],
-    answer: 3
-  },
-  {
        question: "What does CSS stand for?",
        options: ["Cascading Style Sheets","Computer Style Sheets","Creative Style System","Colorful Style Sheets"],
     answer: 0
@@ -39,16 +34,21 @@ const quizData = [
 let currentIndex = 0;
 let score = 0;
 let answered = false;
+let timerId = null;
+let timeLeft = 30;
 
 const questionNumber = document.getElementById("question-number");
 const questionEl = document.getElementById("question");
 const optionsEl = document.getElementById("options");
 const scoreEl = document.getElementById("score");
+const timerEl = document.getElementById("timer");
 const nextBtn = document.getElementById("next-btn");
 
 function loadQuestion() {
     answered = false;
     nextBtn.disable = true;
+    timeLeft = 30;
+    timerEl.textContent = "Time: " + timeLeft;
 
     const currentQuestion = quizData[currentIndex];
 
@@ -65,6 +65,28 @@ function loadQuestion() {
         
         optionsEl.appendChild(button);
     });
+
+    startTimer();
+}
+
+function startTimer() {
+    stopTimer();
+    timerId = setInterval(() => {
+        timeLeft--;
+        timerEl.textContent = "Time: " + timeLeft;
+
+        if (timeLeft <= 0) {
+            stopTimer();
+            handleTimeOut();
+        }
+    }, 1000);
+}
+
+function stopTimer() {
+    if(timerId) {
+        clearInterval(timerId);
+        timerId = null;
+    }
 }
 
 function selectAnswer(button, selectedIndex) {
@@ -85,6 +107,20 @@ function selectAnswer(button, selectedIndex) {
 
     buttons.forEach(b => b.disabled = true);
 
+    scoreEl.textContent = "Score: " + score;
+    nextBtn.disabled = false;
+}
+
+function handleTimeOut() {
+    if(answered) return;
+    answered = true;
+
+    const correctIndex = quizData[currentIndex].answer;
+    const buttons = document.querySelectorAll(".option-btn");
+
+    buttons[correctIndex].classList.add("correct");
+
+    buttons.forEach(b => b.disabled = true);
     scoreEl.textContent = "Score: " + score;
     nextBtn.disabled = false;
 }
