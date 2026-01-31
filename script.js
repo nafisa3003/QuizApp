@@ -43,6 +43,7 @@ const optionsEl = document.getElementById("options");
 const scoreEl = document.getElementById("score");
 const timerEl = document.getElementById("timer");
 const nextBtn = document.getElementById("next-btn");
+const progressEl = document.getElementById("progress");
 
 function loadQuestion() {
     answered = false;
@@ -66,7 +67,13 @@ function loadQuestion() {
         optionsEl.appendChild(button);
     });
 
+    updateProgress();
     startTimer();
+}
+
+function updateProgress() {
+  const percent = Math.round((currentIndex / quizData.length) * 100);
+  progressEl.style.width = percent + "%";
 }
 
 function startTimer() {
@@ -92,6 +99,7 @@ function stopTimer() {
 function selectAnswer(button, selectedIndex) {
     if (answered) return;
     answered = true;
+    stopTimer();
 
     const correctIndex = quizData[currentIndex].answer;
     const buttons = document.querySelectorAll(".option-btn");
@@ -137,6 +145,7 @@ function nextQuestion() {
         optionsEl.innerHTML = "";
         nextBtn.disabled = true;
         timerEl.textContent = "";
+        progressEl.style.width = "100%";
     }
 }
 
