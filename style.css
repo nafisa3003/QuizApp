@@ -8,6 +8,24 @@ body {
     min-height: 100vh;
 }
 
+#start-btn {
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  background: #bd77d5;
+  color: #051025;
+  cursor: pointer;
+  display: block;
+  margin: 40px auto;
+}
+
+#start-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px rgba(0, 245, 212, 0.35);
+}
+
 .quiz-container {
     background-color: #020617;
     padding: 20px;

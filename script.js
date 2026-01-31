@@ -1,3 +1,5 @@
+document.querySelector(".quiz-container").style.display = "none";
+
 /*Questions*/
 const quizData = [
     {
@@ -66,6 +68,7 @@ let timerId = null;
 let timeLeft = 30;
 
 /* DOM Elements */
+const startBtn = document.getElementById("start-btn");
 const questionNumber = document.getElementById("question-number");
 const questionEl = document.getElementById("question");
 const optionsEl = document.getElementById("options");
@@ -73,6 +76,15 @@ const scoreEl = document.getElementById("score");
 const timerEl = document.getElementById("timer");
 const nextBtn = document.getElementById("next-btn");
 const progressEl = document.getElementById("progress");
+
+function startQuiz() {
+  startBtn.style.display = "none";
+  document.querySelector(".quiz-container").style.display = "block";
+  currentIndex = 0;
+  score = 0;
+  prepareQuiz();
+  loadQuestion();
+}
 
 /* Load the question */
 function loadQuestion() {
@@ -183,9 +195,7 @@ function nextQuestion() {
         progressEl.style.width = "100%";
     }
 }
+/* Start quiz */
+startBtn.addEventListener("click", startQuiz);
 
 nextBtn.addEventListener("click", nextQuestion);
-
-/* Start quiz */
-prepareQuiz();
-loadQuestion();
