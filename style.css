@@ -48,12 +48,11 @@ body {
     width: 100%;
     border: none;
     background-color: #ecc8f8;
-    color: white;
+    color: black;
     border-radius: 5px;
     cursor: pointer;
 }
 
 #next-btn:disabled {
-    opacity: 0.7;
     cursor:default;
 }
