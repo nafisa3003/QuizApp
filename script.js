@@ -5,10 +5,35 @@ const quizData = [
     answer: 3
   },
   {
-    question: "What does HTML stand for?",
-    options: ["Hyper Text Markup Language", "High Text Machine Language", "Hyper Tool Multi Language", "None"],
+        question: "What does HTML stand for?",
+        options: ["Hyper Text Markup Language", "High Text Machine Language", "Hyper Tool Multi Language", "None"],
     answer: 0
-  }
+  },
+  {
+       question: "Which language runs in a web browser?",
+       options: ["Java","C","Python","JavaScript"],
+    answer: 3
+  },
+  {
+       question: "What does CSS stand for?",
+       options: ["Cascading Style Sheets","Computer Style Sheets","Creative Style System","Colorful Style Sheets"],
+    answer: 0
+  },
+  {
+      question: "Which HTML element do we put the JS code in?",
+      options: ["<scripting>","<js>","<script>","<javascript>"],
+    answer: 2 
+ }, 
+  {   
+        question: "What does DOM stand for?", 
+        options: ["Document Object Model","Display Object Management","Data Object Model","Desktop Oriented Mode"], 
+    answer: 0 
+  }, 
+  { 
+        question: "Which operator is used for strict equality in JavaScript?", 
+        options: ["=","==","===","!=="], 
+    answer: 2 
+}
 ];
 
 let currentIndex = 0;
