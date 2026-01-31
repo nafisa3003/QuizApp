@@ -1,3 +1,4 @@
+/*Questions*/
 const quizData = [
     {
         question: "Which language runs in a web browser?",
@@ -31,6 +32,7 @@ const quizData = [
 }
 ];
 
+/* Shuffle the questions*/
 function shuffle(arr) {
     let a = arr.slice();
     for(let i=a.length -1; i>0; i--) {
@@ -41,7 +43,7 @@ function shuffle(arr) {
     }
     return a;
 }
-
+/* Prepare the quiz */
 let quiz = [];
 function prepareQuiz() {
     const shuffleQuestions = shuffle(quizData);
@@ -56,13 +58,14 @@ function prepareQuiz() {
         };
     });
 }
-
+/* Initialize the quiz */
 let currentIndex = 0;
 let score = 0;
 let answered = false;
 let timerId = null;
 let timeLeft = 30;
 
+/* DOM Elements */
 const questionNumber = document.getElementById("question-number");
 const questionEl = document.getElementById("question");
 const optionsEl = document.getElementById("options");
@@ -71,6 +74,7 @@ const timerEl = document.getElementById("timer");
 const nextBtn = document.getElementById("next-btn");
 const progressEl = document.getElementById("progress");
 
+/* Load the question */
 function loadQuestion() {
     answered = false;
     nextBtn.disabled = true;
@@ -97,11 +101,13 @@ function loadQuestion() {
     startTimer();
 }
 
+/* Update the progress bar */
 function updateProgress() {
   const percent = Math.round((currentIndex / quiz.length) * 100);
   progressEl.style.width = percent + "%";
 }
 
+/* Timer */
 function startTimer() {
     stopTimer();
     timerId = setInterval(() => {
@@ -122,6 +128,7 @@ function stopTimer() {
     }
 }
 
+/* Answer selection */
 function selectAnswer(button, selectedIndex) {
     if (answered) return;
     answered = true;
@@ -145,6 +152,7 @@ function selectAnswer(button, selectedIndex) {
     nextBtn.disabled = false;
 }
 
+/* Handle time out */
 function handleTimeOut() {
     if(answered) return;
     answered = true;
@@ -159,6 +167,7 @@ function handleTimeOut() {
     nextBtn.disabled = false;
 }
 
+/* Move to the next question */
 function nextQuestion() {
     currentIndex++;
 
@@ -177,5 +186,6 @@ function nextQuestion() {
 
 nextBtn.addEventListener("click", nextQuestion);
 
+/* Start quiz */
 prepareQuiz();
 loadQuestion();
